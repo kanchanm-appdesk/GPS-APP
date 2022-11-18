@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GPS App</string>
+    <string name="get_current_location">Get Current Location</string>
+    <string name="latitude">Latitude</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

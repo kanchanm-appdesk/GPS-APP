@@ -3,16 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
     namespace 'com.appdesk.gpsapp'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.appdesk.gpsapp"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -62,4 +63,9 @@ dependencies {
     // dependency injection - hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Play services
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    // Google Maps
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 }
