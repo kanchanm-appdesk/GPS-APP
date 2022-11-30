@@ -21,8 +21,18 @@ android {
     }
 
     buildTypes {
-        release {
+        debug{
             minifyEnabled false
+            shrinkResources false
+            debuggable true
+            buildConfigField "String", "MAPS_API_KEY", '"AIzaSyBxFT560J4BukMm3tdIQZzx5BbCgtfY08o"'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            buildConfigField "String", "MAPS_API_KEY", '"AIzaSyBxFT560J4BukMm3tdIQZzx5BbCgtfY08o"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
