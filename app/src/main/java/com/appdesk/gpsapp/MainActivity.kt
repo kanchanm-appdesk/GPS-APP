@@ -27,7 +27,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
 
-
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 1
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LocationListener {
@@ -69,15 +68,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     private fun getCurrentLocation() {
-        //1. google play
-        //2. gps or network/wifi status
-        //3. run time location permission
-
+        // check google play services is available or not
         if (isGooglePlayServicesAvailable()) {
             //check for network and wifi status
             if (isGPSEnabled()) {
                 fetchLocation()
-
             } else {
                 //Setting open here
                 //Turn on GPS
@@ -101,7 +96,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             LocationManager.NETWORK_PROVIDER
         )
     }
-
 
     //request permission for precise and approximate accuracy
     private fun requestPermission() {
@@ -193,7 +187,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val address = addresses[0]
         val markerOptions = (MarkerOptions().position(currentLatLong))
         markerOptions.title(address.getAddressLine(0))
-//        markerOptions.icon(bitmapFromVector(this,R.drawable.ic_flag))
+        markerOptions.icon(bitmapFromVector(this,R.drawable.ic_flag))
 //        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         markerOptions.icon
         googleMap.addMarker(markerOptions)
