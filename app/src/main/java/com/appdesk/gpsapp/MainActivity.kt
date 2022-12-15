@@ -13,10 +13,12 @@ import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.appdesk.gpsapp.databinding.ActivityMainBinding
+import com.appdesk.gpsapp.databinding.MapPinBinding
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -27,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
+
 
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 1
 
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private var currentLocation: Location? = null
     private lateinit var locationManager: LocationManager
     private lateinit var geocoder: Geocoder
+    private lateinit var mapPin: MapPinBinding
 
     private val googleApiAvailability by lazy {
         GoogleApiAvailability.getInstance()
@@ -52,6 +56,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        mapPin = MapPinBinding.inflate(layoutInflater)
     }
 
     override fun onStart() {
@@ -121,7 +127,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         googleMap.uiSettings.apply {
             isZoomControlsEnabled = true
             isRotateGesturesEnabled = false
-            isScrollGesturesEnabled = false
+            isScrollGesturesEnabled = true
             isTiltGesturesEnabled = false
         }
         googleMap.setOnMarkerClickListener(this)
@@ -210,11 +216,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                     currentLatLong.latitude, currentLatLong.longitude,
                     PERMISSION_REQUEST_ACCESS_LOCATION
                 ) {
-                    val markerOptions = (MarkerOptions().position(currentLatLong)).apply {
-                        title(it[0].getAddressLine(0))
-                            .icon(bitmapFromVector(this@MainActivity, R.drawable.ic_flag))
-                    }
-                    googleMap.addMarker(markerOptions)
+                    markerOption(it, currentLatLong)
                 }
             else -> {
                 val addresses: List<Address> =
@@ -222,11 +224,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         currentLatLong.latitude, currentLatLong.longitude,
                         PERMISSION_REQUEST_ACCESS_LOCATION
                     ) as List<Address>
-                val markerOptions = (MarkerOptions().position(currentLatLong)).apply {
-                    title(addresses[0].getAddressLine(0))
-                        .icon(bitmapFromVector(this@MainActivity, R.drawable.ic_flag))
-                }
-                googleMap.addMarker(markerOptions)
+                markerOption(addresses, currentLatLong)
             }
         }
     }
@@ -273,4 +271,57 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
+    // Convert View into bitmap
+    private fun bitmapFromView(view: View): Bitmap {
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val bitmap =
+            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    private fun markerOption(addresses: List<Address>, currentLatLong: LatLng) {
+        val employee1 = Employee(
+            "QA",
+            "https://cdn.mos.cms.futurecdn.net/p5quSf4dZXctG9WFepXFdR-320-30.jpg",
+            5,
+            15,
+            4.0f,
+            4,
+            currentLatLong
+        )
+        val employee2 = Employee(
+            "SDE",
+            "https://images.unsplash.com/photo-1613064756072-52b429a1e06f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGJsYWNrJTIwYW5kJTIwd2hpdGUlMjBwb3J0cmFpdHxlbnwwfHwwfHw%3D&w=320&q=30",
+            7,
+            30,
+            4.5f,
+            13,
+            LatLng(28.481000, 77.085801)
+        )
+        val employee3 = Employee(
+            "SSE",
+            "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?w=320",
+            19,
+            52,
+            4.5f,
+            37,
+            LatLng(28.452866, 77.074508)
+        )
+        val employees = listOf(employee1, employee2, employee3)
+        val markerAndEmployee = HashMap<Marker,Employee>()
+        for (i in employees.indices) {
+            val markerOptions = (MarkerOptions().position(employees[i].latLng)).apply {
+                mapPin.jobTitle.text = employees[i].jobTitle
+                val bitmap1 = Bitmap.createScaledBitmap(bitmapFromView(mapPin.root), mapPin.mapPin.width, mapPin.mapPin.height, false)
+                val smallMarkerIcon1 = BitmapDescriptorFactory.fromBitmap(bitmap1)
+                icon(smallMarkerIcon1)
+            }
+            val marker = googleMap.addMarker(markerOptions)
+            markerAndEmployee[marker!!] = employees[i]
+        }
+        googleMap.setInfoWindowAdapter(InfoWindowAdapter(baseContext, markerAndEmployee))
+    }
 }

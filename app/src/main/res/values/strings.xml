@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GPS App</string>
     <string name="get_current_location">Get Current Location</string>
@@ -13,4 +14,12 @@
     <string name="dropped_pin">Dropped Pin</string>
     <string name="poi">poi</string>
     <string name="MAP_API">AIzaSyBxFT560J4BukMm3tdIQZzx5BbCgtfY08o</string>
+    <string name="_15_0">15.0</string>
+    <string name="_dollar">$</string>
+    <string name="_0_reviews">0</string>
+    <string name="complete_lesson_5">Complete Lesson:</string>
+    <string name="verified">Verified</string>
+    <string name="qa">QA</string>
+    <string name="_5">5</string>
+    <string name="reviews">Reviews</string>
 </resources>

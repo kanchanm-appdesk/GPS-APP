@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape"
+    android:padding="@dimen/_20dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profile_image"
+        android:layout_width="@dimen/_125dp"
+        android:layout_height="@dimen/_125dp"
+        android:src="@drawable/ic_user"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/job_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:text="@string/qa"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toTopOf="@+id/profile_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/verified"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:text="@string/verified"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/job_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:text="@string/complete_lesson_5"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/verified" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/complete_lesson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5dp"
+        android:text="@string/_5"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv1"
+        app:layout_constraintStart_toEndOf="@+id/tv1"
+        app:layout_constraintTop_toTopOf="@+id/tv1" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/rating_bar"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="4.5"
+        android:stepSize="0.5"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:text="@string/_0_reviews"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5dp"
+        android:text="@string/reviews"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/review"
+        app:layout_constraintStart_toEndOf="@+id/review"
+        app:layout_constraintTop_toTopOf="@+id/review" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp"
+        android:text="@string/_dollar"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/profile_image"
+        app:layout_constraintStart_toStartOf="@+id/profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="@string/_15_0"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv3"
+        app:layout_constraintStart_toEndOf="@+id/tv3"
+        app:layout_constraintTop_toTopOf="@+id/tv3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
